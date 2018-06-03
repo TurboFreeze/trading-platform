@@ -3,17 +3,24 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <thread>
 
 using namespace std;
 
+void create_connection () {
+
+}
+
 int main (void) {
-        int socketfd, connectfd;
+        int socketfd, connection;
         int opt = 1;
         char* port = "102";
         int num_connections = 10;
         struct addrinfo hints;
         struct addrinfo *res;
         struct addrinfo *result;
+        struct sockaddr_in address;
+        socklen_t addrsize;
 
         // struct setup
         memset(&hints, 0, sizeof hints);
@@ -65,8 +72,16 @@ int main (void) {
 
         // main loop for accepting and processing connections
         while (true) {
-                cout << "Server is functioning and can process connections here" << endl;
-                break;
+                // accept a connection
+                addrsize = sizeof address;
+                connection = accept (socketfd, (struct sockaddr *) &address, &addrsize);
+                if (connection == -1) {
+                        perror("connection could not be accepted");
+                        continue;
+                }
+                cout << "Connection accepted" << endl;
+                // multithreading
+
         }
 
         cout << "Starting platform..." << endl;
