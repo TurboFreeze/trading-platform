@@ -1,18 +1,16 @@
 #include "Platform.h"
+#include "Connection.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <thread>
-#include <chrono>
 #include <vector>
 
 void create_connection (int connection) {
-        // continuous loop for listening
-        while (true) {
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-                std::cout << "Connection is " << connection << std::endl;
-        }
+        // create new connection and start it up
+        Connection c = Connection(connection);
+        c.start();
 }
 
 int main (void) {
@@ -72,7 +70,10 @@ int main (void) {
                 return 1;
         }
 
-        std::cout << "Server is running" << std::endl;
+
+        std::cout << "Order management system platform created" << std::endl;
+        Platform p = Platform();
+
         std::cout << "Waiting for connections..." << std::endl;
 
         // main loop for accepting and processing connections
@@ -89,9 +90,7 @@ int main (void) {
                 connections.push_back(std::thread(create_connection, connection));
         }
 
-        std::cout << "Starting platform..." << std::endl;
-        Platform p = Platform();
-        p.run();
+        // joining threads back into main launch thread
         for (int i = 0; i < connections.size(); i++) {
                 connections[i].join();
         }
