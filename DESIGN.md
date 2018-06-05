@@ -35,7 +35,8 @@ Users should be able to create accounts. These accounts should be able to mainta
 
 ### Execution
 
-The server should maintain a list of bids and asks for each tradeable asset and execute accordingly.
+The server should maintain a list of bids and asks for each tradable asset and execute accordingly.
 
 ## Specifications and Technologies
 
+Written in `C++` and compiled with the `clang++` compiler. Requires `C++11` standard for multithreading purposes. Development pipeline is streamlined with `makefiles` to produce an executable for the client and an executable for the server.
