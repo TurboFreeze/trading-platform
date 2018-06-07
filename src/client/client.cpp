@@ -1,3 +1,4 @@
+#include "Controller.h"
 #include <sys/socket.h>
 #include <netdb.h>
 #include <iostream>
@@ -42,11 +43,15 @@ int main (void) {
         // finish connecting by freeing up and checking for success
         freeaddrinfo(res);
         if (result == NULL) {
-                perror("conneciton failed");
+                perror("connection failed");
                 return 1;
         }
 
         std::cout << "Connected to server" << std::endl;
+
+        // launch controller
+        Controller controller = Controller(socketfd);
+        controller.start();
 
         return 0;
 }

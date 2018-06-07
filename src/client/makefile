@@ -4,8 +4,8 @@ CPPFLAGS=-I inc
 %.o: %.cpp
 	$(CC) -c -std=c++11 -o $@ $< $(CPPFLAGS)
 
-client: client.o
-	$(CC) -o client client.o
+client: Controller.o client.o
+	$(CC) -o client Controller.o client.o
 
 clean:
-	rm client client.o
+	rm client Controller.o client.o
