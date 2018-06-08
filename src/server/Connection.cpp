@@ -13,12 +13,13 @@ void Connection::start() {
         char buffer[HEADER_LENGTH];
 
         while (true) {
+                int status = recv(socket, buffer, HEADER_LENGTH, 0);
                 // no input received
-                if (recv(socket, buffer, HEADER_LENGTH, 0) == 0) {
+                if (status == 0) {
                         continue;
                 }
                 // connection timed-out
-                if (recv(socket, buffer, HEADER_LENGTH, 0) == -1) {
+                if (status == -1) {
                         std::cout << "Connection disconnected for file descriptor " << socket << std::endl;
                         return;
                 }
