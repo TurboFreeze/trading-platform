@@ -12,6 +12,6 @@ View::View() {
 
 std::string View::get_input() {
         std::string s;
-        std::cin >> s;
+        std::getline(std::cin, s);
         return s;
 }
