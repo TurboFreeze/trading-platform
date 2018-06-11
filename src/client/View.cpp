@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 
-
 // constructor
 View::View() {
         welcome();
@@ -13,6 +12,11 @@ void View::welcome() {
         std::cout << "WELCOME TO THE TRADING PLATFORM - TRADE WITH US" << std::endl;
 }
 
+// print error message
+void View::error(std::string message) {
+        std::cout << "ERROR: " << message << std::endl;
+}
+
 // general input reader
 std::string View::get_input() {
         std::string s;
@@ -20,10 +24,27 @@ std::string View::get_input() {
         return s;
 }
 
+// custom prompt input reader for doubles
+double View::get_input(std::string prompt) {
+        std::string s;
+        bool valid;
+        std::cout << prompt;
+        // loop until valid input
+        do {
+                std::getline(std::cin, s);
+                valid = true; // TODO: validate numerical input
+                if (valid) {
+                        return std::stod(s);
+                }
+                std::cout << "Invalid input; please try again: ";
+        } while (!valid);
+        return -1;
+}
+
 // custom options and prompt input reader
 int View::get_input(std::string prompt, std::vector<int> options) {
         std::string s;
-        int num = -1;
+        int num;
         bool valid;
         std::cout << prompt;
         // loop until valid input
@@ -38,9 +59,10 @@ int View::get_input(std::string prompt, std::vector<int> options) {
                                 break;
                         }
                 }
-                if (!valid) {
-                        std::cout << "Invalid input; please try again: ";
+                if (valid) {
+                        return num;
                 }
+                std::cout << "Invalid input; please try again: ";
         } while(!valid);
-        return num;
+        return -1;
 }

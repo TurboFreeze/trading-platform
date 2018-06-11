@@ -1,3 +1,8 @@
-static int HEADER_LENGTH = 9;
+class Constants {
+public:
+enum {
+        HEADER_LENGTH = 33,
+        SUBMIT_BID = 3
+};
 
-static int SUBMIT_BID = 3;
+};

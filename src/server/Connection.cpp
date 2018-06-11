@@ -10,10 +10,11 @@ Connection::Connection(int connection) {
 void Connection::start() {
         std::cout << "Connection established; the file descriptor for this connection is " << socket << std::endl;
         // continuous loop for listening
-        char buffer[HEADER_LENGTH];
+        char buffer[Constants::HEADER_LENGTH];
+        double data;
 
         while (true) {
-                int status = recv(socket, buffer, HEADER_LENGTH, 0);
+                int status = recv(socket, &data, sizeof(data), 0);
                 // no input received
                 if (status == 0) {
                         continue;
@@ -23,6 +24,6 @@ void Connection::start() {
                         std::cout << "Connection disconnected for file descriptor " << socket << std::endl;
                         return;
                 }
-                std::cout << buffer << std::endl;
+                std::cout << data << std::endl;
         }
 }
