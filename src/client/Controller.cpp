@@ -11,19 +11,27 @@ Controller::Controller(int connection) {
 }
 
 void Controller::submit_bid() {
-        double price = v.get_input("Price of the bid: ");
+        int option = Constants::SUBMIT_BID;
 
-        // send to server
+        // item
+        int item = v.get_input_int("Item of bid: ");
+
+        // price
+        double price = v.get_input_double("Price of the bid: ");
+
+        // send the option selected
+        send(socket, &option, sizeof(option), 0);
+        send(socket, &item, sizeof(item), 0);
         send(socket, &price, sizeof(price), 0);
 }
 
-void Controller::send_message() {
-        std::string result = v.get_input();
-        char result_chars[Constants::HEADER_LENGTH];
-        strcpy(result_chars, std::to_string(result).c_str());
-        // send to server
-        send(socket, result_chars, Constants::HEADER_LENGTH, 0);
-}
+// void Controller::send_message() {
+//         std::string result = v.get_input();
+//         char result_chars[Constants::HEADER_LENGTH];
+//         strcpy(result_chars, std::to_string(result).c_str());
+//         // send to server
+//         send(socket, result_chars, Constants::HEADER_LENGTH, 0);
+// }
 
 void Controller::start() {
 
@@ -32,7 +40,7 @@ void Controller::start() {
                 // get input and process
                 std::vector<int> options = {Constants::SUBMIT_BID};
                 std::string prompt = "Enter an option: ";
-                int result = v.get_input(prompt, options);
+                int result = v.get_option(prompt, options);
 
                 // routing to appropriate processing functions
                 switch (result) {

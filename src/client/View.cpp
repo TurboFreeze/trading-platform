@@ -25,7 +25,7 @@ std::string View::get_input() {
 }
 
 // custom prompt input reader for doubles
-double View::get_input(std::string prompt) {
+double View::get_input_double(std::string prompt) {
         std::string s;
         bool valid;
         std::cout << prompt;
@@ -41,8 +41,26 @@ double View::get_input(std::string prompt) {
         return -1;
 }
 
+
+// custom prompt input reader
+int View::get_input_int(std::string prompt) {
+        std::string s;
+        bool valid;
+        std::cout << prompt;
+        // loop until valid input
+        do {
+                std::getline(std::cin, s);
+                valid = true; // TODO: validate numerical input
+                if (valid) {
+                        return std::stoi(s);
+                }
+                std::cout << "Invalid input; please try again: ";
+        } while (!valid);
+        return -1;
+}
+
 // custom options and prompt input reader
-int View::get_input(std::string prompt, std::vector<int> options) {
+int View::get_option(std::string prompt, std::vector<int> options) {
         std::string s;
         int num;
         bool valid;
