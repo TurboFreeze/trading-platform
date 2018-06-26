@@ -10,4 +10,5 @@ std::string get_input();
 double get_input_double(std::string prompt);
 int get_input_int(std::string prompt);
 int get_option(std::string prompt, std::vector<int> options);
+void clear();
 };

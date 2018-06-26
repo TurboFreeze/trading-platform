@@ -25,6 +25,21 @@ void Controller::submit_bid() {
         send(socket, &price, sizeof(price), 0);
 }
 
+void Controller::submit_ask() {
+        int option = Constants::SUBMIT_ASK;
+
+        // item
+        int item = v.get_input_int("Item of ask: ");
+
+        // price
+        double price = v.get_input_double("Price of the ask: ");
+
+        // send the option selected
+        send(socket, &option, sizeof(option), 0);
+        send(socket, &item, sizeof(item), 0);
+        send(socket, &price, sizeof(price), 0);
+}
+
 // void Controller::send_message() {
 //         std::string result = v.get_input();
 //         char result_chars[Constants::HEADER_LENGTH];
@@ -38,7 +53,7 @@ void Controller::start() {
         // main loop interfacing with client-side user
         while (true) {
                 // get input and process
-                std::vector<int> options = {Constants::SUBMIT_BID};
+                std::vector<int> options = {Constants::SUBMIT_BID, Constants::SUBMIT_ASK};
                 std::string prompt = "Enter an option: ";
                 int result = v.get_option(prompt, options);
 
@@ -46,6 +61,9 @@ void Controller::start() {
                 switch (result) {
                 case Constants::SUBMIT_BID:
                         submit_bid();
+                        break;
+                case Constants::SUBMIT_ASK:
+                        submit_ask();
                         break;
                 default:
                         v.error("Command not recognized");

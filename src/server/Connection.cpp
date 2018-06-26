@@ -56,10 +56,22 @@ void Connection::get_bid() {
         // std::cout << "New BID for ITEM: " << item << " and " << "PRICE: " << price << std::endl;
 }
 
+void Connection::get_ask() {
+        int item = read_stream_int();
+        double price = read_stream_double();
+        // create the ask object
+        Ask ask = Ask(price, item);
+        parent->addAsk(socket, ask);
+        // std::cout << "New ASK for ITEM: " << item << " and " << "PRICE: " << price << std::endl;
+}
+
 void Connection::option_handle(int option) {
         switch(option) {
         case Constants::SUBMIT_BID:
                 get_bid();
+                break;
+        case Constants::SUBMIT_ASK:
+                get_ask();
                 break;
         default:
                 std::cout << "ERROR: UNRECOGNIZED OPTION" << std::endl;

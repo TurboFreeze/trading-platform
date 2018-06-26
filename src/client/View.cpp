@@ -28,6 +28,7 @@ std::string View::get_input() {
 double View::get_input_double(std::string prompt) {
         std::string s;
         bool valid;
+        clear();
         std::cout << prompt;
         // loop until valid input
         do {
@@ -36,6 +37,7 @@ double View::get_input_double(std::string prompt) {
                 if (valid) {
                         return std::stod(s);
                 }
+                clear();
                 std::cout << "Invalid input; please try again: ";
         } while (!valid);
         return -1;
@@ -46,6 +48,7 @@ double View::get_input_double(std::string prompt) {
 int View::get_input_int(std::string prompt) {
         std::string s;
         bool valid;
+        clear();
         std::cout << prompt;
         // loop until valid input
         do {
@@ -54,6 +57,7 @@ int View::get_input_int(std::string prompt) {
                 if (valid) {
                         return std::stoi(s);
                 }
+                clear();
                 std::cout << "Invalid input; please try again: ";
         } while (!valid);
         return -1;
@@ -64,6 +68,7 @@ int View::get_option(std::string prompt, std::vector<int> options) {
         std::string s;
         int num;
         bool valid;
+        clear();
         std::cout << prompt;
         // loop until valid input
         do {
@@ -80,7 +85,13 @@ int View::get_option(std::string prompt, std::vector<int> options) {
                 if (valid) {
                         return num;
                 }
+                clear();
                 std::cout << "Invalid input; please try again: ";
         } while(!valid);
         return -1;
+}
+
+void View::clear() {
+        system("clear");
+        welcome();
 }
