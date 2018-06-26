@@ -1,4 +1,4 @@
-#include "Platform.h"
+// #include "Platform.h"
 #include "Connection.h"
 #include <iostream>
 #include <sys/socket.h>
@@ -7,9 +7,9 @@
 #include <thread>
 #include <vector>
 
-void create_connection (int connection) {
+void create_connection (int connection, Platform* platform) {
         // create new connection and start it up
-        Connection c = Connection(connection);
+        Connection c = Connection(connection, platform);
         c.start();
 }
 
@@ -87,7 +87,7 @@ int main (void) {
                 }
                 std::cout << "Connection accepted" << std::endl;
                 // multithreading; spin off thread with the new connection
-                connections.push_back(std::thread(create_connection, connection));
+                connections.push_back(std::thread(create_connection, connection, &p));
         }
 
         // joining threads back into main launch thread

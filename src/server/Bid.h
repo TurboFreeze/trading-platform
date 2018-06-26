@@ -1,7 +1,10 @@
 class Bid {
 public:
-int price;
-int time;
 Bid();
-Bid(int p, int t);
+Bid(double p, int i);
+double getPrice();
+int getItem();
+private:
+double price;
+int item;
 };

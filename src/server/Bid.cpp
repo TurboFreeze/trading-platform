@@ -1,6 +1,14 @@
 #include "Bid.h"
 
-Bid::Bid(int p, int t) {
+Bid::Bid(double p, int i) {
         price = p;
-        time = t;
+        item = i;
+}
+
+double Bid::getPrice() {
+        return price;
+}
+
+int Bid::getItem() {
+        return item;
 }

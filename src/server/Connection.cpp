@@ -3,8 +3,9 @@
 #include <iostream>
 #include <sys/socket.h>
 
-Connection::Connection(int connection) {
+Connection::Connection(int connection, Platform* p) {
         socket = connection;
+        parent = p;
 }
 
 
@@ -49,7 +50,10 @@ int Connection::read_stream_int() {
 void Connection::get_bid() {
         int item = read_stream_int();
         double price = read_stream_double();
-        std::cout << "ITEM: " << item << std::endl << "PRICE: " << price << std::endl;
+        // create the bid object
+        Bid bid = Bid(price, item);
+        parent->addBid(socket, bid);
+        // std::cout << "New BID for ITEM: " << item << " and " << "PRICE: " << price << std::endl;
 }
 
 void Connection::option_handle(int option) {
